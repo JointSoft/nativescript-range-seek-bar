@@ -123,8 +123,13 @@ export class AppComponent {
 }
 ```
 
+# First time
+
+1. `cd src`
+2. `npm run setup`
+
 # To publish updates:
 
-1. Commit your changes and push to the repository.
-2. `cd src`
-3. `npm run publish`
+2. Commit your changes and push to the repository.
+3. `cd src`
+4. `npm run publish`
