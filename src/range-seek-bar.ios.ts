@@ -1,158 +1,177 @@
 import {
-    RangeSeekBarBase,
-    RangeSeekBarEventData,
-    minValueProperty,
-    maxValueProperty,
-    minStartValueProperty,
-    maxStartValueProperty,
-    minRangeProperty,
-    stepProperty,
-    cornerRadiusProperty,
-    cornerRadiusCssProperty,
-    barHeightProperty,
-    barHeightCssProperty,
-    barColorProperty,
-    barColorCssProperty,
-    barHighlightColorProperty,
-    barHighlightColorCssProperty,
-    thumbColorProperty,
-    thumbColorCssProperty,
-    leftThumbColorProperty,
-    leftThumbColorCssProperty,
-    rightThumbColorProperty,
-    rightThumbColorCssProperty,
-    leftThumbHighlightProperty,
-    leftThumbHighlightCssProperty,
-    rightThumbHighlightProperty,
-    rightThumbHighlightCssProperty,
+	RangeSeekBarBase,
+	RangeSeekBarEventData,
+	barColorCssProperty,
+	barColorProperty,
+	barHeightCssProperty,
+	barHeightProperty,
+	barHighlightColorCssProperty,
+	barHighlightColorProperty,
+	cornerRadiusCssProperty,
+	cornerRadiusProperty,
+	maxStartValueProperty,
+	maxValueProperty,
+	minRangeProperty,
+	minStartValueProperty,
+	minValueProperty,
+	stepProperty,
+	thumbColorCssProperty,
+	thumbColorProperty,
 } from "./range-seek-bar.common";
 
-import { Color, Utils } from '@nativescript/core';
+import { Color, Utils } from "@nativescript/core";
 
 export class RangeSeekBar extends RangeSeekBarBase {
-    nativeView: TTRangeSlider;
-    rangeSeekBarDelegate: TTRangeSliderDelegateImpl;
+	nativeView: TTRangeSlider;
+	rangeSeekBarDelegate: TTRangeSliderDelegateImpl;
 
-    public createNativeView() {
-        const rangeSlider = TTRangeSlider.new();
-        rangeSlider.hideLabels = true;
-        rangeSlider.enableStep = true;
-        rangeSlider.step = 1;
-        rangeSlider.handleDiameter = Utils.layout.toDeviceIndependentPixels(20 * 2);
-        rangeSlider.lineHeight = Utils.layout.toDeviceIndependentPixels(5);
-        rangeSlider.selectedMinimum = 0;
-        rangeSlider.selectedMaximum = 0;
-        rangeSlider.selectedHandleDiameterMultiplier = 1.0;
-        return rangeSlider;
-    }
+	public createNativeView() {
+		const rangeSlider = TTRangeSlider.new();
+		rangeSlider.hideLabels = true;
+		rangeSlider.enableStep = true;
+		rangeSlider.step = 1;
+		rangeSlider.handleDiameter = Utils.layout.toDeviceIndependentPixels(20 * 2);
+		rangeSlider.lineHeight = Utils.layout.toDeviceIndependentPixels(5);
+		rangeSlider.selectedMinimum = 0;
+		rangeSlider.selectedMaximum = 0;
+		rangeSlider.selectedHandleDiameterMultiplier = 1.0;
+		return rangeSlider;
+	}
 
-    public onLoaded() {
-        super.onLoaded();
-        this.nativeView.frame = CGRectMake(0, 0, this.nativeView.superview.frame.size.width, 30);
-        this.nativeView.delegate = this.rangeSeekBarDelegate = TTRangeSliderDelegateImpl.initWithOwner(new WeakRef<RangeSeekBar>(this));
-    }
+	public onLoaded() {
+		super.onLoaded();
+		this.nativeView.frame = CGRectMake(
+			0,
+			0,
+			this.nativeView.superview.frame.size.width,
+			30
+		);
+		this.nativeView.delegate = this.rangeSeekBarDelegate =
+			TTRangeSliderDelegateImpl.initWithOwner(new WeakRef<RangeSeekBar>(this));
+	}
 
-    public [minValueProperty.setNative](value: number) {
-        this.nativeView.minValue = value;
-    }
+	public updateMinStartValue(minValue: number) {
+		this.nativeView.selectedMinimum = minValue;
+	}
 
-    public [maxValueProperty.setNative](value: number) {
-        this.nativeView.maxValue = value;
-    }
+	public updateMaxStartValue(maxValue: number) {
+		this.nativeView.selectedMaximum = maxValue;
+	}
 
-    public [minStartValueProperty.setNative](value: number) {
-        this.nativeView.selectedMinimum = value;
-    }
+	public [minValueProperty.setNative](value: number) {
+		this.nativeView.minValue = value;
+	}
 
-    public [maxStartValueProperty.setNative](value: number) {
-        this.nativeView.selectedMaximum = value;
-    }
+	public [maxValueProperty.setNative](value: number) {
+		this.nativeView.maxValue = value;
+	}
 
-    public [minRangeProperty.setNative](value: number) {
-        this.nativeView.minDistance = value;
-    }
+	public [minStartValueProperty.setNative](value: number) {
+		this.nativeView.selectedMinimum = value;
+	}
 
-    public [stepProperty.setNative](value: number) {
-        this.nativeView.step = value;
-    }
+	public [maxStartValueProperty.setNative](value: number) {
+		this.nativeView.selectedMaximum = value;
+	}
 
-    public [cornerRadiusProperty.setNative](value: number) {
-        this.nativeView.handleDiameter = Utils.layout.toDeviceIndependentPixels(value * 2);
-    }
+	public [minRangeProperty.setNative](value: number) {
+		this.nativeView.minDistance = value;
+	}
 
-    public [cornerRadiusCssProperty.setNative](value: number) {
-        this.nativeView.handleDiameter = Utils.layout.toDeviceIndependentPixels(value * 2);
-    }
+	public [stepProperty.setNative](value: number) {
+		this.nativeView.step = value;
+	}
 
-    public [barHeightProperty.setNative](value: number) {
-        this.nativeView.lineHeight = Utils.layout.toDeviceIndependentPixels(value);
-    }
+	public [cornerRadiusProperty.setNative](value: number) {
+		this.nativeView.handleDiameter = Utils.layout.toDeviceIndependentPixels(
+			value * 2
+		);
+	}
 
-    public [barHeightCssProperty.setNative](value: number) {
-        this.nativeView.lineHeight = Utils.layout.toDeviceIndependentPixels(value);
-    }
+	public [cornerRadiusCssProperty.setNative](value: number) {
+		this.nativeView.handleDiameter = Utils.layout.toDeviceIndependentPixels(
+			value * 2
+		);
+	}
 
-    public [barColorProperty.setNative](value: Color) {
-        this.nativeView.tintColor = value.ios;
-    }
+	public [barHeightProperty.setNative](value: number) {
+		this.nativeView.lineHeight = Utils.layout.toDeviceIndependentPixels(value);
+	}
 
-    public [barColorCssProperty.setNative](value: Color) {
-        this.nativeView.tintColor = value.ios;
-    }
+	public [barHeightCssProperty.setNative](value: number) {
+		this.nativeView.lineHeight = Utils.layout.toDeviceIndependentPixels(value);
+	}
 
-    public [barHighlightColorProperty.setNative](value: Color) {
-        this.nativeView.tintColorBetweenHandles = value.ios;
-    }
+	public [barColorProperty.setNative](value: Color) {
+		this.nativeView.tintColor = value.ios;
+	}
 
-    public [barHighlightColorCssProperty.setNative](value: Color) {
-        this.nativeView.tintColorBetweenHandles = value.ios;
-    }
+	public [barColorCssProperty.setNative](value: Color) {
+		this.nativeView.tintColor = value.ios;
+	}
 
-    public [thumbColorProperty.setNative](value: Color) {
-        this.nativeView.handleColor = value.ios;
-    }
+	public [barHighlightColorProperty.setNative](value: Color) {
+		this.nativeView.tintColorBetweenHandles = value.ios;
+	}
 
-    public [thumbColorCssProperty.setNative](value: Color) {
-        this.nativeView.handleColor = value.ios;
-    }
+	public [barHighlightColorCssProperty.setNative](value: Color) {
+		this.nativeView.tintColorBetweenHandles = value.ios;
+	}
+
+	public [thumbColorProperty.setNative](value: Color) {
+		this.nativeView.handleColor = value.ios;
+	}
+
+	public [thumbColorCssProperty.setNative](value: Color) {
+		this.nativeView.handleColor = value.ios;
+	}
 }
 
 @ObjCClass(TTRangeSliderDelegate)
 @NativeClass()
-export class TTRangeSliderDelegateImpl extends NSObject implements TTRangeSliderDelegate {
-    public owner: WeakRef<RangeSeekBar>;
+export class TTRangeSliderDelegateImpl
+	extends NSObject
+	implements TTRangeSliderDelegate
+{
+	public owner: WeakRef<RangeSeekBar>;
 
-    public static initWithOwner(owner: WeakRef<RangeSeekBar>): TTRangeSliderDelegateImpl {
-        let delegate = TTRangeSliderDelegateImpl.new() as TTRangeSliderDelegateImpl;
-        delegate.owner = owner;
-        return delegate;
-    }
+	public static initWithOwner(
+		owner: WeakRef<RangeSeekBar>
+	): TTRangeSliderDelegateImpl {
+		let delegate = TTRangeSliderDelegateImpl.new() as TTRangeSliderDelegateImpl;
+		delegate.owner = owner;
+		return delegate;
+	}
 
-    public rangeSliderDidChangeSelectedMinimumValueAndMaximumValue(sender: TTRangeSlider, selectedMinimum: number, selectedMaximum: number): void {
-        if (this.owner && this.owner.get()) {
-            let args = {
-                eventName: RangeSeekBarBase.rangeSeekBarChangedEvent,
-                object: sender,
-                value: {
-                    minValue: sender.selectedMinimum,
-                    maxValue: sender.selectedMaximum
-                }
-            } as RangeSeekBarEventData;
-            this.owner.get().notify(args);
-        }
-    }
+	public rangeSliderDidChangeSelectedMinimumValueAndMaximumValue(
+		sender: TTRangeSlider,
+		selectedMinimum: number,
+		selectedMaximum: number
+	): void {
+		if (this.owner && this.owner.get()) {
+			let args = {
+				eventName: RangeSeekBarBase.rangeSeekBarChangedEvent,
+				object: sender,
+				value: {
+					minValue: sender.selectedMinimum,
+					maxValue: sender.selectedMaximum,
+				},
+			} as RangeSeekBarEventData;
+			this.owner.get().notify(args);
+		}
+	}
 
-    public didEndTouchesInRangeSlider(sender: TTRangeSlider): void {
-        if (this.owner && this.owner.get()) {
-            let args = {
-                eventName: RangeSeekBarBase.rangeSeekBarFinalValueEvent,
-                object: sender,
-                value: {
-                    minValue: sender.selectedMinimum,
-                    maxValue: sender.selectedMaximum
-                }
-            } as RangeSeekBarEventData;
-            this.owner.get().notify(args);
-        }
-    }
+	public didEndTouchesInRangeSlider(sender: TTRangeSlider): void {
+		if (this.owner && this.owner.get()) {
+			let args = {
+				eventName: RangeSeekBarBase.rangeSeekBarFinalValueEvent,
+				object: sender,
+				value: {
+					minValue: sender.selectedMinimum,
+					maxValue: sender.selectedMaximum,
+				},
+			} as RangeSeekBarEventData;
+			this.owner.get().notify(args);
+		}
+	}
 }
