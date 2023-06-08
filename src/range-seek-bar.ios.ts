@@ -129,7 +129,7 @@ export class RangeSeekBar extends RangeSeekBarBase {
 
 @ObjCClass(TTRangeSliderDelegate)
 @NativeClass()
-export class TTRangeSliderDelegateImpl
+class TTRangeSliderDelegateImpl
 	extends NSObject
 	implements TTRangeSliderDelegate
 {
@@ -176,4 +176,4 @@ export class TTRangeSliderDelegateImpl
 	}
 }
 
-// export { TTRangeSliderDelegateImpl };
+export { TTRangeSliderDelegateImpl };
